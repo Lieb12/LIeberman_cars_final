@@ -4,10 +4,14 @@
 #include <unistd.h>
 #include <time.h>
 
+// directional rows/columns
 const static int north[3] = {12, 31, 40};
 const static int south[3] = {21, 30, 49};
 const static int east[2]  = {1, 9};
 const static int west[2]  = {8, 16};
+
+// delay between ticks in milliseconds
+const int delay = 250;
 
 char grid[50][256];
 
@@ -17,6 +21,7 @@ typedef struct {
     char dir;
 } Car;
 
+//places car on the grid with
 void PlaceCar(Car *car, int x, int y) {
     car->x = x;
     car->y = y;
@@ -37,7 +42,7 @@ void GetDirection(Car *car) {
     if (inArray(north, 3, car->x) && car->y > 1)
         options[count][0] = car->x, options[count++][1] = car->y - 1;
 
-    if (inArray(south, 3, car->x) && car->y < 17)
+    if (inArray(south, 3, car->x) && car->y < 16)
         options[count][0] = car->x, options[count++][1] = car->y + 1;
 
     if (inArray(east, 2, car->y) && car->x < 49)
@@ -57,7 +62,7 @@ void GetDirection(Car *car) {
 }
 
 void PrintGrid(Car cars[], int carCount) {
-    FILE *f = fopen("grid.txt", "r");
+    FILE *f = fopen("grid_v2.txt", "r");
     if (!f) return;
 
     char temp[50][256];
@@ -97,7 +102,7 @@ int main() {
             GetDirection(&cars[i]);
         }
         PrintGrid(cars, 5);
-        usleep(500000);
+        usleep(delay * 1000);
     }
 
     return 0;
