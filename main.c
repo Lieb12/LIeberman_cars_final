@@ -6,7 +6,7 @@
 
 const static int north[3] = {12, 31, 40};
 const static int south[3] = {21, 30, 49};
-const static int east[2]  = {2, 9};
+const static int east[2]  = {1, 9};
 const static int west[2]  = {8, 16};
 
 char grid[50][256];
@@ -34,13 +34,13 @@ void GetDirection(Car *car) {
     int options[4][2];
     int count = 0;
 
-    if (inArray(north, 3, car->x) && car->y > 0)
+    if (inArray(north, 3, car->x) && car->y > 1)
         options[count][0] = car->x, options[count++][1] = car->y - 1;
 
     if (inArray(south, 3, car->x) && car->y < 17)
         options[count][0] = car->x, options[count++][1] = car->y + 1;
 
-    if (inArray(east, 2, car->y) && car->x < 50)
+    if (inArray(east, 2, car->y) && car->x < 49)
         options[count][0] = car->x + 1, options[count++][1] = car->y;
 
     if (inArray(west, 2, car->y) && car->x > 12)
@@ -84,11 +84,11 @@ int main() {
     srand(time(NULL));
 
     Car car1, car2, car3, car4, car5;
-    PlaceCar(&car1, 12, 2);
-    PlaceCar(&car2, 12, 30);
-    PlaceCar(&car3, 31, 3);
-    PlaceCar(&car4, 40, 10);
-    PlaceCar(&car5, 21, 9);
+    PlaceCar(&car1, 12, 2);  // 16th and Montgomery
+    PlaceCar(&car2, 12, 17); //16th and Oxford
+    PlaceCar(&car3, 31, 3);  //Broad and Montgomery
+    PlaceCar(&car4, 40, 10); // 13th and Cecil
+    PlaceCar(&car5, 21, 9);  // 15th and CEcil
 
     Car cars[] = {car1, car2, car3, car4, car5};
 
